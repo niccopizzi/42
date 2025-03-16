@@ -1,0 +1,28 @@
+{
+    "files.associations": {
+        "bit": "c",
+        "cmath": "c",
+        "compare": "c",
+        "concepts": "c",
+        "cstdarg": "c",
+        "cstdio": "c",
+        "cstdlib": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "initializer_list": "c",
+        "limits": "c",
+        "new": "c",
+        "*.tcc": "c",
+        "cstdint": "c",
+        "typeinfo": "c",
+        "ccomplex": "cpp",
+        "complex": "cpp",
+        "time.h": "c",
+        "minirt.h": "c",
+        "mlx_utils.h": "c",
+        "objects.h": "c",
+        "chrono": "c",
+        "string": "c",
+        "format": "c"
+    }
+}
