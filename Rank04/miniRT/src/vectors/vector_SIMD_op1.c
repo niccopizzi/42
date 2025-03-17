@@ -17,7 +17,7 @@ inline float   vector_len_squared(t_vec4 vector)
 
 inline float   vector_len(t_vec4 vector)
 {
-    return (sqrt(vector_len_squared(vector)));
+    return (sqrt(vector_dot_product(vector, vector)));
 }
 
 inline t_point4      vector_at(t_point4 origin, t_vec4 direction, float t)

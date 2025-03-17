@@ -29,33 +29,12 @@ int main(int argc, char *argv[])
     t_ptrs      ptrs;
     t_image     img;
     t_world     world;
-    t_mat4      m;
-    t_mat4      id;
-    t_mat4      res;
-    t_vec4      vec;
-
-    m[0] = vector_from_array((float[]){1,2,3,4});
-    m[1] = vector_from_array((float[]){2,4,4,2});
-    m[2] = vector_from_array((float[]){8,3,4,1});
-    m[3] = vector_from_array((float[]){0,0,0,1});
-
-    vec = vector_from_array((float[]){1,2,3,1});
-
-    vec = matrix4_mult_vec4(m , vec);
-    printf("VECTOR IS NOW %f %f %f %f\n", vec[0], vec[1], vec[2], vec[3]);
-    printf("\t\t\tMAT IS \n");
-    matrix4_print(m);
     
+    t_point4    p = vector_from_array((float[]){0, 1, 0, 1});
 
-    matrix4_setup_identity(id);
-    matrix4_mult_mat4(res, m, id);
-    printf("\t\t\tMAT IS NOW\n");
-    matrix4_print(m);
-    vec = matrix4_mult_vec4(id , vec);
-    printf("VECTOR IS NOW %f %f %f %f\n", vec[0], vec[1], vec[2], vec[3]);
-    matrix4_transpose(id);
-    printf("\t\t\tID IS\n");
-    matrix4_print(id);
+    t_mat4      rotate = matrix4_rotate_z(PI / 12);
+
+    t_mat4      t_m = matrix4_mult_mat4(matrix4_translate(200, 200, 0), rotate);
     ft_bzero(&world, sizeof(t_world));
     if (argc == 1 || !argv[1][0])
         return (printf(ERR NO_FILE), 1);
@@ -67,6 +46,21 @@ int main(int argc, char *argv[])
     connection_init(&ptrs, &img);
     hooks_set_up(&ptrs);
     mlx_clear_window(ptrs.mlx_ptr, ptrs.win_ptr);
+    for (int i = 0; i < 12; i++)
+    {
+        int     px = WIDTH * 0.5 + (WIDTH * 0.5) * p[0];
+        int     py = HEIGHT * 0.5 + (HEIGHT * 0.5) * p[1];
+        for (int x = 0; x <= 25; x++)
+        {
+            for (int y = 0; y <= 25; y++)
+            {
+                if (x * x + y *y <= 100)
+                    image_pixel_put(&img, px + x, py + y, 0xFFFFFF);
+            }
+        }
+        p = matrix4_mult_vec4(rotate, p);
+    }
+    mlx_put_image_to_window(ptrs.mlx_ptr, ptrs.win_ptr, img.img_ptr, 0, 0);
     mlx_loop(ptrs.mlx_ptr);
     return (0);
 }

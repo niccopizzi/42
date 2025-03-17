@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror -Warray-bounds -msse2 -march=native -mavx2 -O2 -I./include
+CFLAGS = -Warray-bounds -msse2 -march=native -mavx2 -O2 -I./include
 NAME = miniRT
 
 LIBFT_DIR = ./lib/libft

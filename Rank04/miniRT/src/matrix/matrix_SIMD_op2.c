@@ -1,36 +1,99 @@
 #include "matrix.h"
 
-t_vec4      matrix4_mult_vec4(t_mat4 m, t_vec4 vec)
+inline t_vec4      matrix4_mult_vec4(t_mat4 m, t_vec4 vec)
 {
     return (vector_from_array( (float[]){ 
-                vector_dot_product(m[0], vec),
-                vector_dot_product(m[1], vec),
-                vector_dot_product(m[2], vec),
-                vector_dot_product(m[3], vec)
+                vector_dot_product(m.row[0], vec),
+                vector_dot_product(m.row[1], vec),
+                vector_dot_product(m.row[2], vec),
+                vector_dot_product(m.row[3], vec)
                 }));
 }
 
-void    matrix4_subm(t_mat3 subm, t_mat4 m, int row, int col)
+t_mat3    matrix4_submatrix(t_mat4 m, int row, int col)
 {
-    int i;
+    t_mat3  subm;
+    int     i;
+    int     j;
+    int     x;
+    int     y;
 
+    i = -1;
+    x = 0;
+    while (++i < 4)
+    {
+        if (i == row)   
+            i++;
+        j = 0;
+        y = 0;
+        while (j < 4)
+        {
+            if (j != col)
+                subm.row[x][y++] = m.row[i][j];
+            j++;
+        }
+        subm.row[x++][3] = 0;
+    }
+    subm.row[3] = _mm_setzero_ps();    
+    return (subm);
+}
+
+inline float   matrix4_cofactor(t_mat4 m, int row, int col)
+{
+    if ((row + col ) % 2 != 0)
+        return (-(matrix3_det(matrix4_submatrix(m, row, col))));
+    return (matrix3_det(matrix4_submatrix(m, row, col)));
+}
+
+inline float   matrix4_det(t_mat4 m)
+{
+    return (vector_dot_product(m.row[0], vector_from_array(
+            (float[]){
+                matrix4_cofactor(m, 0, 0),
+                matrix4_cofactor(m, 0, 1),
+                matrix4_cofactor(m, 0, 2),
+                matrix4_cofactor(m, 0, 3),
+            }
+    )));
+}
+
+t_mat4    matrix4_invert(t_mat4 m)
+{
+    t_mat4  invm;
+    float   det;
+    int     i;
+    int     j;
+
+    det = matrix4_det(m);
+    if (det == 0)
+        return(m);
+    det = 1 / det;
     i = 0;
     while (i < 4)
-    
-}
-
-inline float       matrix2_det(t_mat2 m)
-{
-    return (m[0] * m[3] - m[2] * m[1]);
-}
-
-void    matrix4_print(t_mat4 id)
-{
-    for (int i = 0; i < 4; i++)
     {
-        for (int j = 0; j < 4; j++)
+        j = 0;
+        while (j < 4)
         {
-            printf("%f ", id[i][j]);
+            invm.row[j][i] = matrix4_cofactor(m, i, j);
+            j++;
+        }
+        i++;
+    }
+    invm.row[0] *= det;
+    invm.row[1] *= det;
+    invm.row[2] *= det;
+    invm.row[3] *= det;
+    return (invm);
+}
+
+void    matrix_print(t_mat4 id, int size, char *name)
+{
+    printf("\t\tPRINTING MATRIX : %s\n", name);
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            printf("%.5f ", id.row[i][j]);
         }
         printf("\n");
     }
