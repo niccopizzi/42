@@ -1,5 +1,6 @@
 #include "ray.h"
 
+
 inline t_ray   ray_create(t_point4 origin, t_vec4 direction, t_rtype type)
 {
     t_ray   ray;

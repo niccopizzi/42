@@ -14,7 +14,8 @@ bool    parse_sphere(char *line, t_world *world)
         return (false);
     if (!is_valid_float(line))
         return (printf(ERR SPHERE INV_FLOAT), false);
-    line = ft_strtof(line, &sphere.diameter);
+    line = ft_strtof(line, &sphere.radius);
+    sphere.radius *= 0.5;
     if (!skip_space_and_check(&line, ERR SPHERE))
         return (false);
     if (!parse_rgb(&line, &sphere.color))
@@ -28,7 +29,8 @@ bool    parse_cylinder_two(char *line, t_world *world, t_object cylinder)
 {
     if (!is_valid_float(line))
         return (printf(ERR CYLINDER INV_FLOAT), false);
-    line = ft_strtof(line, &cylinder.diameter);
+    line = ft_strtof(line, &cylinder.radius);
+    cylinder.radius *= 0.5;
     if (!skip_space_and_check(&line, ERR CYLINDER))
         return (false);
     if (!is_valid_float(line))

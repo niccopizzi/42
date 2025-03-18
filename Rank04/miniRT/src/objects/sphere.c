@@ -1,36 +1,36 @@
 #include "objects.h"
 
-inline t_object    sphere_new(t_point4 center, float diameter)
+inline t_object    sphere_new(t_point4 center, float radius)
 {
     t_object    sphere;
 
     sphere.center = center;
     sphere.type = SP;
-    sphere.diameter = diameter;
+    sphere.radius = radius;
 
     return (sphere);
 }
 
-void  sphere_hit_test(t_ray *ray, t_object *sphere, t_intersect *in)
+bool  sphere_hit_test(t_ray *ray, t_object *sphere, t_da *intersections)
 {
-    t_vec4  str = ray->origin - sphere->center;
-    float   a = vector_dot_product(ray->direction, ray->direction);
-    float   b = 2 * vector_dot_product(ray->direction, str);
-    float   c = vector_dot_product(str, str) - 1;
-    float   sqrtd;
+    t_vec4  sp_to_ray_vec;
+    float   a;
+    float   b;
+    float   c;
+    float   d;
 
-    float   d = b * b - (4 * (a * c));
+    sp_to_ray_vec = ray->origin - sphere->center;
+    a = vector_dot_product(ray->direction, ray->direction);
+    b = 2 * vector_dot_product(ray->direction, sp_to_ray_vec);
+    c = vector_dot_product(sp_to_ray_vec, sp_to_ray_vec) - 1;
+    d = b * b - (4 * (a * c));
 
     if (d < 0)
-    {
-        in->count = 0;
-        return;
-    }
-    sqrtd = sqrt(d);
-    in->count = 2;
-    in->t[0] = (-b - sqrtd) / (2 * a);
-    in->t[1] = (-b + sqrtd) / (2 * a);
-    in->intersected = sphere;
+        return (true);
+    return (da_append(intersections, (void *) &(t_intersect){
+        .t = (-b - sqrt(d)) / (2 * a), .intersected = sphere}) 
+        && da_append(intersections, (void *) &(t_intersect){
+        .t = (-b + sqrt(d)) / (2 * a), .intersected = sphere}));
 }
 
 /* float hit_sphere_geom(t_ray *ray, t_object *sphere)

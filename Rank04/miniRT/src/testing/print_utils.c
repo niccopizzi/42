@@ -35,7 +35,7 @@ void    print_world(t_world *world)
         case SP:
             printf("\n\nSPHERE\nCENTER: %f %f %f\nDIAMETER: %f\nRGB: %f %f %f\n", 
             ptr[i].center[0],ptr[i].center[1],ptr[i].center[2],
-            ptr[i].diameter, ptr[i].color[0], ptr[i].color[1], ptr[i].color[2]);
+            ptr[i].radius, ptr[i].color[0], ptr[i].color[1], ptr[i].color[2]);
             break;
         case PL:
             printf("\n\nPLANE\nPOINT: %f %f %f\nNORMAL %f %f %f\nRGB: %f %f %f\n", 
@@ -47,7 +47,7 @@ void    print_world(t_world *world)
             printf("\n\nCYLINDER\nCENTER: %f %f %f\nAXIS: %f %f %f\nDIAMETER: %f\nHEIGHT: %f\nRGB: %f %f %f\n", 
             ptr[i].center[0], ptr[i].center[1], ptr[i].center[2],
             ptr[i].axis[0], ptr[i].axis[1], ptr[i].axis[2], 
-            ptr[i].diameter, ptr[i].height, 
+            ptr[i].radius, ptr[i].height, 
             ptr[i].color[0], ptr[i].color[1], ptr[i].color[2]);
             break;
         default:

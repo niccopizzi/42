@@ -1,6 +1,5 @@
 #include "miniRT.h"
 
-
 int main(int argc, char *argv[])
 {
     t_ptrs      ptrs;
@@ -8,8 +7,10 @@ int main(int argc, char *argv[])
     t_world     world;
     
     t_object sphere = sphere_new(vector_from_array((float[]){0,0,0,1}), 1);
-    t_ray    ray = ray_create(vector_from_array((float[]){0,0,5, 1}), vector_from_array((float[]){0,0,1, 0}), PRIMARY);
+    t_ray    ray = ray_create(vector_from_array((float[]){0,0, 5, 1}), vector_from_array((float[]){0,0,1, 0}), PRIMARY);
 
+
+    sizeof(t_intersect);
     ft_bzero(&world, sizeof(t_world));
     if (argc == 1 || !argv[1][0])
         return (printf(ERR NO_FILE), 1);
@@ -21,9 +22,16 @@ int main(int argc, char *argv[])
     free(world.objects.data);
     //t_ray ray = ray_create(vector_from_array((float[]){2, 3, 4, 1}), vector_normalize(vector_from_array((float[]){1, 0, 0, 0})), PRIMARY);
 
-    t_intersect test;
-    sphere_hit_test(&ray, &sphere, &test);
-    printf("TEST %f %f %d %d\n", test.t[0], test.t[1], test.count, test.intersected->type);
+    t_da        intersections;
+    da_init(&intersections, OBJECT_CAPACITY, INTERSECT_BYTES);
+    sphere_hit_test(&ray, &sphere, &intersections);
+
+    t_intersect* ptr = hit(&intersections);
+    if (ptr)
+        printf("CLOSEST INTERSECTION FOUND %f\n", ptr->t);
+    else    
+        printf("NO INTERSECTION FOUND\n");
+    free(intersections.data);
     connection_init(&ptrs, &img);
     hooks_set_up(&ptrs);
     mlx_clear_window(ptrs.mlx_ptr, ptrs.win_ptr);

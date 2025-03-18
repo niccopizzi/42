@@ -3,6 +3,7 @@
 
 #include "vectors.h"
 #include "ray.h"
+#include "../lib/minift/include/minift.h"
 
 typedef enum e_type
 {
@@ -14,7 +15,7 @@ typedef enum e_type
 typedef struct s_object
 {
     t_type      type;
-    float       diameter;
+    float       radius;
     float       height;
     t_point4    point;
     t_vec4      normal;
@@ -25,14 +26,13 @@ typedef struct s_object
 
 typedef struct s_intersect
 {
-    float       t[2];
-    int         count;   
+    float       t;  
     t_object*   intersected;
      
 }   t_intersect;
 
-t_object    sphere_new(t_point4 center, float diameter);
-
-void        sphere_hit_test(t_ray *ray, t_object *sphere, t_intersect *in);
+t_object        sphere_new(t_point4 center, float radius);
+t_intersect*    hit(const t_da *intersections);
+bool            sphere_hit_test(t_ray *ray, t_object *sphere, t_da *intersections);
 
 #endif  //OBJECTS_H
