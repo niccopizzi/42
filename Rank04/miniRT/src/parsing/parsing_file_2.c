@@ -1,6 +1,5 @@
 #include "parsing.h"
 #include "miniRT.h"
-#include "da.h"
 
 bool    parse_sphere(char *line, t_world *world)
 {
@@ -22,7 +21,7 @@ bool    parse_sphere(char *line, t_world *world)
         return (printf(ERR SPHERE RGB_ERR), false);
     if (*line != '\n')
         return (printf(ERR SPHERE ENDLINE_ERR), false);
-    return (objects_append(&world->objects, sphere));
+    return (da_append(&world->objects, &sphere));
 }
 
 bool    parse_cylinder_two(char *line, t_world *world, t_object cylinder)
@@ -41,7 +40,7 @@ bool    parse_cylinder_two(char *line, t_world *world, t_object cylinder)
         return (printf(ERR CYLINDER RGB_ERR), false);
     if (*line != '\n')
         return (printf(ERR CYLINDER ENDLINE_ERR), false);
-    return (objects_append(&world->objects, cylinder));
+    return (da_append(&world->objects, &cylinder));
 }
 
 bool    parse_cylinder(char *line, t_world *world)
@@ -83,5 +82,5 @@ bool    parse_plane(char *line, t_world *world)
         return (printf(ERR PLANE RGB_ERR), false);
     if (*line != '\n')
         return (printf(ERR PLANE ENDLINE_ERR), false);
-    return (objects_append(&world->objects, plane));
+    return (da_append(&world->objects, &plane));
 }

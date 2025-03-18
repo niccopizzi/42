@@ -85,16 +85,3 @@ t_mat4    matrix4_invert(t_mat4 m)
     invm.row[3] *= det;
     return (invm);
 }
-
-void    matrix_print(t_mat4 id, int size, char *name)
-{
-    printf("\t\tPRINTING MATRIX : %s\n", name);
-    for (int i = 0; i < size; i++)
-    {
-        for (int j = 0; j < size; j++)
-        {
-            printf("%.5f ", id.row[i][j]);
-        }
-        printf("\n");
-    }
-}

@@ -1,8 +1,8 @@
 CFLAGS = -Warray-bounds -msse2 -march=native -mavx2 -O2 -I./include
 NAME = miniRT
 
-LIBFT_DIR = ./lib/libft
-LIB = -L./lib/minilibx-linux -lmlx_Linux -L./lib/libft -lft -lX11 -lXext -lm  
+LIBFT_DIR = ./lib/minift
+LIB = -L./lib/minilibx-linux -lmlx_Linux -L./lib/minift -lminift -lX11 -lXext -lm  
 
 MY_SOURCES = ./src/main.c \
 				./src/*/*

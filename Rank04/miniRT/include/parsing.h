@@ -1,7 +1,7 @@
 #ifndef PARSING_H
 #define PARSING_H
 
-#include "../lib/libft/include/libft.h"
+#include "../lib/minift/include/minift.h"
 #include "world.h"
 #include <string.h>
 #include <errno.h>

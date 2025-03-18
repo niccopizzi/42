@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "minift.h"
 
 char    *ft_strtof(char *str, float *f)
 {
@@ -27,32 +27,3 @@ char    *ft_strtof(char *str, float *f)
     }
     return (str + i);
 }
-
-/*
-char	*ft_strtod(char *str, double *atod)
-{
-	int	i;
-	int	sign;
-
-	i = 0;
-	sign = 1;
-	*atod = ft_atoi(str);
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-		i++;
-	if (str[i] == '.')
-	{
-		i++;
-		*atod = *atod + (sign) * (float)ft_atoi(str + i) / ft_pow(10,
-				ft_numlen(ft_atoi(str + i)));
-		while (str[i] >= '0' && str[i] <= '9')
-			i++;
-	}
-	return (str + i);
-}
-*/

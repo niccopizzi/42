@@ -23,6 +23,9 @@
         "objects.h": "c",
         "chrono": "c",
         "string": "c",
-        "format": "c"
+        "format": "c",
+        "get_next_line.h": "c",
+        "camera.h": "c",
+        "parsing.h": "c"
     }
 }

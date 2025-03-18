@@ -2,7 +2,7 @@
 #define MINIRT_H
 
 #define IMG_RATIO 1.77777
-#define WIDTH 1800
+#define WIDTH 900
 #define HEIGHT (int)(WIDTH / IMG_RATIO)
 #define OBJECT_CAPACITY 20
 #define TO_RAD 0.0174533
