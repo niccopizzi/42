@@ -1,7 +1,7 @@
 #ifndef OBJECTS_H
 #define OBJECTS_H
 
-#include "vectors.h"
+#include "matrix.h"
 #include "ray.h"
 #include "../lib/minift/include/minift.h"
 
@@ -22,6 +22,7 @@ typedef struct s_object
     t_point4    center;
     t_vec4      axis;
     t_color     color;
+    t_mat4      transform;
 }   t_object;
 
 typedef struct s_intersect
@@ -34,5 +35,5 @@ typedef struct s_intersect
 t_object        sphere_new(t_point4 center, float radius);
 t_intersect*    hit(const t_da *intersections);
 bool            sphere_hit_test(t_ray *ray, t_object *sphere, t_da *intersections);
-
+void            sphere_set_transform(t_object *sphere, t_mat4 tm);
 #endif  //OBJECTS_H

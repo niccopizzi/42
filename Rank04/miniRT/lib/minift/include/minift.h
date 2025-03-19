@@ -13,7 +13,7 @@
 typedef enum e_bytes
 {
     INTERSECT_BYTES = 16,
-    OBJECT_BYTES = 96,
+    OBJECT_BYTES = 160,
 }   t_bytes;
 
 

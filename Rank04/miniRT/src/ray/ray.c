@@ -16,3 +16,14 @@ inline  t_point4    ray_at(t_ray ray, float time)
 {
     return (vector_at(ray.origin, ray.direction, time));
 }
+
+t_ray       ray_transform(const t_ray *ray, const t_mat4 tm)
+{
+    t_ray   ray_transform;
+
+    ray_transform.type = ray->type;
+    ray_transform.origin = matrix4_mult_vec4(tm, ray->origin);
+    ray_transform.direction = matrix4_mult_vec4(tm, ray->direction);
+    
+    return (ray_transform);
+}

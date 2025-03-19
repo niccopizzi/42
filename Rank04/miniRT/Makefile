@@ -1,4 +1,5 @@
 CFLAGS = -Warray-bounds -msse2 -march=native -mavx2 -O2 -I./include
+SQUARE = -D IMG_RATIO=1
 NAME = miniRT
 
 LIBFT_DIR = ./lib/minift
@@ -18,6 +19,11 @@ $(NAME): $(MY_SOURCES)
 	@gcc $(CFLAGS) -g -c $< -o $@ 
 	@echo "$< compiled."
 
+
+square: 
+	@gcc $(CFLAGS) $(SQUARE) $(MY_SOURCES) $(LIB) -o $(NAME)
+	@echo "COMPILED THE SQUARED MOTAFAKKA!"
+	
 clean:
 	@$(RM) $(MY_OBJECTS)
 	@echo "Objects files removed."
