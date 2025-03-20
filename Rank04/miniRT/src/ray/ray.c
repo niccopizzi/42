@@ -27,3 +27,13 @@ t_ray       ray_transform(const t_ray *ray, const t_mat4 tm)
     
     return (ray_transform);
 }
+
+t_ray       ray_reflect(const t_ray *ray, const t_vec4 *normal, const t_point4  *p)
+{
+    t_ray   reflected_ray;
+
+    reflected_ray.type = REFLECTIVE;
+    reflected_ray.origin = *p;
+    reflected_ray.direction = ray->direction - (*normal * 2 * vector_dot_product(ray->direction, *normal));
+    return (reflected_ray);
+}

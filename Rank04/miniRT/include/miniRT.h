@@ -1,9 +1,7 @@
 #ifndef MINIRT_H
 #define MINIRT_H
 
-#ifndef IMG_RATIO
-    #define IMG_RATIO 1.77777
-#endif //IMG_RATIO
+#define IMG_RATIO 1
 #define WIDTH 900
 #define HEIGHT (int)(WIDTH / IMG_RATIO)
 #define OBJECT_CAPACITY 20

@@ -17,7 +17,23 @@ inline void     sphere_set_transform(t_object *sphere, t_mat4 tm)
     sphere->transform = tm;
 }
 
-bool  sphere_hit_test(t_ray *ray, t_object *sphere, t_da *intersections)
+t_vec4  sphere_normal_at(t_object *sphere, t_point4 *p)
+{
+    t_vec4      normal;
+    t_mat4      tm;
+    t_point4    p_object;
+
+    p_object = matrix4_mult_vec4(sphere->transform, *p);
+    normal = p_object - sphere->center;
+    matrix4_copy(&tm, &sphere->transform);
+    _MM_TRANSPOSE4_PS(tm.row[0], tm.row[1], tm.row[2], tm.row[3]);
+    normal = matrix4_mult_vec4(tm, normal);
+    normal[3] = 0; 
+    normal = vector_normalize(normal);
+    return (normal);
+}
+
+bool  sphere_hit_test(t_ray *ray, t_object *sphere, float* t)
 {
     t_vec4  sp_to_ray_vec;
     t_ray   ray_t;
@@ -26,7 +42,7 @@ bool  sphere_hit_test(t_ray *ray, t_object *sphere, t_da *intersections)
     float   c;
     float   d;
 
-    ray_t = ray_transform(ray, matrix4_invert(sphere->transform));
+    ray_t = ray_transform(ray, sphere->transform);
     sp_to_ray_vec = ray_t.origin - sphere->center;
     a = vector_dot_product(ray_t.direction, ray_t.direction);
     b = 2 * vector_dot_product(ray_t.direction, sp_to_ray_vec);
@@ -35,10 +51,9 @@ bool  sphere_hit_test(t_ray *ray, t_object *sphere, t_da *intersections)
 
     if (d < 0)
         return (false);
-    return (da_append(intersections, (void *) &(t_intersect){
-        .t = (-b - sqrt(d)) / (2 * a), .intersected = sphere}) 
-        && da_append(intersections, (void *) &(t_intersect){
-        .t = (-b + sqrt(d)) / (2 * a), .intersected = sphere}));
+    t[0] = (-b - sqrt(d)) / (2 * a);
+    t[1] = (-b + sqrt(d)) / (2 * a);
+    return (true);
 }
 
 /* float hit_sphere_geom(t_ray *ray, t_object *sphere)

@@ -21,7 +21,7 @@ typedef     t_vec4  t_color;
 #include <stdbool.h>
 
 #define PI          3.141593
-#define EPSILON     __FLT_EPSILON__
+#define EPSILON     0.000001
 
 t_vec4      vector_negate(t_vec4 vector);
 float       vector_dot_product(t_vec4 vector1, t_vec4 vector2);
@@ -39,6 +39,8 @@ bool        vector_compare_gt(t_vec4 vector1,  t_vec4 vector2);
 t_vec4      vector_from_float(float a);
 t_vec4      vector_from_array(const float *array);
 
+
+t_vec4      vector_reflect(const t_vec4 to_reflect, const t_vec4 normal);
 t_point4    lerp(t_point4 p1, t_point4 p2, float a);
 /* float       vector_len_sqrd(t_vec3 *vector);
 float       vector_len(t_vec3 *vector);

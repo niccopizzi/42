@@ -77,6 +77,5 @@ t_mat4      matrix4_rotate_z(float rad)
     cosr = cosf(rad);
     m.row[0] = vector_from_array((float[]){cosr, -sinr, 0, 0});
     m.row[1] = vector_from_array((float[]){sinr, cosr, 0, 0});
-
     return (m);
 }

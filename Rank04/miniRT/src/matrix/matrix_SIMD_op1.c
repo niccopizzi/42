@@ -39,7 +39,7 @@ t_mat4    matrix4_mult_mat4(t_mat4 m1, t_mat4 m3)
     t_mat4  res;
 
     matrix4_copy(&m2, &m3);
-    matrix4_transpose(m2);
+    _MM_TRANSPOSE4_PS(m2.row[0], m2.row[1], m2.row[2], m2.row[3]);
     (res).row[0] = _mm_load_ps((float[]){ vector_dot_product(m1.row[0], m2.row[0]),
                                 vector_dot_product(m1.row[0], m2.row[1]), 
                                 vector_dot_product(m1.row[0], m2.row[2]),
