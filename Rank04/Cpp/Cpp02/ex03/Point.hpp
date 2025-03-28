@@ -2,31 +2,32 @@
 #define POINT_HPP
 
 #include "Fixed.hpp"
+#include <iostream>
 
-class Point
+class Point 
 {
 private:
-    Fixed   const x;
-    Fixed   const y;
-    Point& operator=(const Point& point);
+    const Fixed x;
+    const Fixed y;
+    void operator=(const Point& p);
 
 public:
-
     Point();
-    Point(const float n1, const float n2);
-    Point(const Point& point);
-
-    const Fixed&        getX() const;
-    const Fixed&        getY() const;
-    int         getXBits() const;
-    int         getYBits() const;
-    bool        operator==(Point& point);
-    bool        operator==(const Point& point);
-    bool        operator!=(Point& point);
-    bool        operator!=(const Point& point);
+    Point(const float xVal, const float yVal);
+    Point(const int rawValX, const int rawValY);
+    Point(const Point& p);
+    Point(const Fixed& x, const Fixed& y);
     ~Point();
+
+    const Fixed& getX(void) const;
+    const Fixed& getY(void) const;
+
+    Point operator+(const Point& p) const;
+    Point operator-(const Point& p) const;
 };
 
-bool    bsp(Point const a, Point const b, Point const c, Point const point);
+std::ostream& operator<<(std::ostream& os, const Point& p);
 
-#endif
+bool bsp(Point const a, Point const b, Point const c, Point const point);
+
+#endif // POINT_HPP

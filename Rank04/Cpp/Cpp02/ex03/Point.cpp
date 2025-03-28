@@ -1,65 +1,67 @@
 #include "Point.hpp"
 
-Point::Point() : x(0), y(0)
+Point::Point(void) : x(0) , y(0)
 {
    // std::cout << "Default constructor called\n";
 }
 
-Point::Point(const float n1, const float n2) : x(n1), y(n2)
+Point::Point(const int rawValX, const int rawValY) : x(rawValX), y(rawValY)
 {
-  //  std::cout << "Floating arguments constructor called\n";
+   // std::cout << "Raw val constructor called\n";
 }
 
+Point::Point(const float xVal, const float yVal) : x(xVal) , y(yVal)
+{
+   // std::cout << "Float constructor called\n";
+}
+
+Point::Point(const Fixed& px, const Fixed& py) : x(px), y(py)
+{
+
+}
+
+Point::Point(const Point& p) : x(p.getX()) , y(p.getY())
+{
+   // std::cout << "Copy constructor called\n";
+}
 Point::~Point()
 {
-   // std::cout << "Point destructor called\n";
+   // std::cout << "Destructor called\n";
 }
 
-Point::Point(const Point& point) : x(point.x.getRawBits()), y(point.y.getRawBits())
+void Point::operator=(const Point& p)
 {
-  //  std::cout << "Copy constructor called\n";
+    (void)p;
+    std::cout << "Operator not usable\n";
 }
 
-const Fixed&  Point::getX() const
-{   
+Point Point::operator+(const Point& p) const
+{
+    return (Point (x.getRawBits() + p.getX().getRawBits(), 
+            y.getRawBits() + p.getY().getRawBits()));
+}
+
+Point Point::operator-(const Point& p) const
+{
+    Fixed   newX;
+    Fixed   newY;
+    newX.setRawBits(x.getRawBits() - p.getX().getRawBits());
+    newY.setRawBits(y.getRawBits() - p.getY().getRawBits());
+
+    return (Point(newX, newY));
+}
+
+const Fixed& Point::getX(void) const
+{
     return (x);
 }
 
-const Fixed&  Point::getY() const
-{   
+const Fixed& Point::getY(void) const
+{
     return (y);
 }
 
-bool        Point::operator==(const Point& point)
+std::ostream& operator<<(std::ostream& os, const Point& p)
 {
-    return(x.getRawBits() == point.getX().getRawBits() 
-            && y.getRawBits() == point.getY().getRawBits());
-}
-
-bool        Point::operator==(Point& point)
-{
-    return(x.getRawBits() == point.getX().getRawBits() 
-            && y.getRawBits() == point.getY().getRawBits());
-}
-
-bool        Point::operator!=(const Point& point)
-{
-    return (x.getRawBits() != point.getX().getRawBits() 
-            && y.getRawBits() != point.getY().getRawBits());
-}
-
-bool        Point::operator!=(Point& point)
-{
-    return (x.getRawBits() != point.getX().getRawBits() 
-            && y.getRawBits() != point.getY().getRawBits());
-}
-
-int         Point::getXBits() const
-{
-    return (x.getRawBits());
-}
-
-int         Point::getYBits() const
-{
-    return (y.getRawBits());
+    return (os << "(" << p.getX() << ", " << p.getY() << ")");
 }

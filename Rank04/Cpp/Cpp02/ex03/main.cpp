@@ -2,15 +2,18 @@
 
 int main(void)
 {
-    Point c(3.3f, 1.4f);
-    Point b(10.f, 5.2f);
-    Point a(2.f, 2.f);
+    Point a;
 
-    Point d(0.2f, -0.5f);
-        
-    if (bsp(a, b, c, d))
-        std::cout << "Point is inside\n";
-    else
-        std::cout << "Point is outside\n";
+    Point b((float)2.5, (float)1.1);
+    Point c((float)1.1, (float)2.2);
+    std::cout << a << std::endl;
+    std::cout << b << std::endl;
+    std::cout << c << std::endl;
+
+    Point   point((float)0.3,(float)0.5);
+    if (bsp(a, b ,c, point))
+        std::cout << "Point is inside the triangle\n";
+    else    
+        std::cout << "Point is outside the triangle\n";
     return (0);
 }

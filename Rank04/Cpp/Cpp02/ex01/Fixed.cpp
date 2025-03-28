@@ -1,8 +1,6 @@
 #include "Fixed.hpp"
 #include <cmath>
 
-const int Fixed::fractionalBits = 8;
-
 Fixed::Fixed()
 {
     std::cout << "Default constructor called"<<std::endl;
@@ -12,15 +10,14 @@ Fixed::Fixed()
 Fixed::Fixed(const int value)
 {
     std::cout << "Int constructor called"<<std::endl;
+    if (value >= (1 << 24))
+        std::cout << "Warning, integer values overflows\n";
     this->value = value << fractionalBits;
 }
 
 Fixed::Fixed(const float value)
 {
-    int     new_value;
-
-    new_value = (value * float(1 << fractionalBits)) + (value <= 0 ? -0.5 : 0.5);
-    this->value = new_value;
+    this->value = (value * float(1 << fractionalBits)) + (value <= 0 ? -1 : 1);
     std::cout << "Float constructor called"<<std::endl;
 }
 
@@ -55,12 +52,15 @@ void Fixed::setRawBits(int const raw)
 
 float Fixed::toFloat(void) const
 {
-    return (float(value) / float(1 << fractionalBits));
+    float   ret;
+
+    ret = float(value) / float(1 << fractionalBits);
+    return (ret);
 }
 
 int Fixed::toInt(void) const
 {
-    return (value /( 1 << fractionalBits));
+    return (value / (1 << fractionalBits));
 }
 
 std::ostream& operator<<(std::ostream& os, const Fixed& fixed)
