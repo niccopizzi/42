@@ -19,7 +19,7 @@ public:
     int          getAttackDamage() const;
     bool         getGuard() const;
 
-    void attack(const std::string& target);
+    virtual void attack(const std::string& target);
     void            guardGate();
 };
 

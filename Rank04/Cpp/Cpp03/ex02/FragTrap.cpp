@@ -50,6 +50,25 @@ int FragTrap::getAttackDamage() const
     return (ClapTrap::attackDamage);
 }
 
+void FragTrap::attack(const std::string& target)
+{
+    if (!ClapTrap::energyPoints)
+    {
+        std::cout << "FragTrap " << ClapTrap::name << " wants to attack " << target
+                    << "but has no energy points\n";
+        return;
+    }
+    if (ClapTrap::hitPoints <= 0)
+    {
+        std::cout << "FragTrap " << ClapTrap::name << " wants to attack " << target
+                    << "but has no hit points\n";
+        return;
+    }
+    std::cout << "FragTrap " << ClapTrap::name << " attacks " << target
+            << " causing " << ClapTrap::attackDamage << " points of damage!\n";
+    ClapTrap::energyPoints = ClapTrap::energyPoints - 1;
+}
+
 void    FragTrap::highFivesGuys() const 
 {
     std::cout << "FragTrap " << ClapTrap::name << " says: High figh guys!\n";

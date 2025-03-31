@@ -18,8 +18,8 @@ public:
     int          getHitPoints() const;
     int          getEnergyPoints() const;
     int          getAttackDamage() const;
-    bool         getGuard() const;
 
+    virtual void attack(const std::string& target);
     void highFivesGuys(void) const;
 };
 

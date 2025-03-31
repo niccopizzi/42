@@ -20,6 +20,7 @@ public:
     int          getAttackDamage() const;
     bool         getGuard() const;
 
+    void attack(const std::string& target);
     void highFivesGuys(void) const;
 };
 

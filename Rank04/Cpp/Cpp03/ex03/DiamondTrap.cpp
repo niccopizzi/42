@@ -3,6 +3,7 @@
 DiamondTrap::DiamondTrap(const std::string& name) : ClapTrap(name), ScavTrap(name), FragTrap(name)
 {
     this->name = name;
+    energyPoints = 50;
     ClapTrap::name = name + "_clap_name";
     std::cout << "DiamondTrap default constructor called\n";
 }
@@ -27,30 +28,36 @@ std::string     DiamondTrap::getName() const
     return (name);
 }
 
-std::string     DiamondTrap::getClapTrapName() const
-{
-    return (ClapTrap::name);
-}
-
 int DiamondTrap::getHitPoints() const 
 {
-    return (ClapTrap::hitPoints);
+    return (hitPoints);
 }
 
 int DiamondTrap::getEnergyPoints() const 
 {
-    return (ClapTrap::energyPoints);
+    return (energyPoints);
 }
 
 int DiamondTrap::getAttackDamage() const
 {
-    return (ClapTrap::attackDamage);
+    return (attackDamage);
+}
+
+void DiamondTrap::whoAmI() const
+{
+    std::cout << "Diamond Trap name " << name 
+            <<"\nClapTrap name " << ClapTrap::name << std::endl;
+}
+
+
+void DiamondTrap::attack(const std::string& target)
+{
+    this->ScavTrap::attack(target);
 }
 
 std::ostream&   operator<<(std::ostream& os, const DiamondTrap& dt)
 {
     return (os << "     Name     : " << dt.getName()
-            << "\nClapTrap Name :" << dt.getClapTrapName()
             << "\nHit Points    : " << dt.getHitPoints()
             << "\nEnergy Points : " << dt.getEnergyPoints() 
             << "\nAttack Damage : " << dt.getAttackDamage() << std::endl);

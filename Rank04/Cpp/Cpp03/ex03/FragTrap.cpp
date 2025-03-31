@@ -2,25 +2,25 @@
 
 FragTrap::FragTrap(const std::string& name) : ClapTrap(name)
 {
-    ClapTrap::hitPoints = 100;
-    ClapTrap::energyPoints = 100;
-    ClapTrap::attackDamage = 30;
+    FragTrap::hitPoints = 100;
+    FragTrap::energyPoints = 100;
+    FragTrap::attackDamage = 30;
     std::cout << "FragTrap default constructor called\n";
 }
 
 FragTrap::FragTrap(const FragTrap& st) : ClapTrap(st.getName())
 {
-    ClapTrap::hitPoints = st.getHitPoints();
-    ClapTrap::energyPoints = st.getEnergyPoints();
-    ClapTrap::attackDamage = st.getAttackDamage();
+    FragTrap::hitPoints = st.getHitPoints();
+    FragTrap::energyPoints = st.getEnergyPoints();
+    FragTrap::attackDamage = st.getAttackDamage();
     std::cout << "FragTrap copy constructor called\n";
 }
 FragTrap& FragTrap::operator=(const FragTrap& st)
 {
-    ClapTrap::name = st.getName();
-    ClapTrap::hitPoints = st.getHitPoints();
-    ClapTrap::energyPoints = st.getEnergyPoints();
-    ClapTrap::attackDamage = st.getAttackDamage();
+    FragTrap::name = st.getName();
+    FragTrap::hitPoints = st.getHitPoints();
+    FragTrap::energyPoints = st.getEnergyPoints();
+    FragTrap::attackDamage = st.getAttackDamage();
     std::cout << "FragTrap copy assignment operator called\n";
     return (*this);
 }
@@ -32,22 +32,41 @@ FragTrap::~FragTrap()
 
 std::string  FragTrap::getName() const
 {
-    return (ClapTrap::name);
+    return (name);
 }
 
 int FragTrap::getHitPoints() const
 {
-    return (ClapTrap::hitPoints);
+    return (hitPoints);
 }
 
 int FragTrap::getEnergyPoints() const
 {
-    return (ClapTrap::energyPoints);
+    return (energyPoints);
 }
 
 int FragTrap::getAttackDamage() const
 {
-    return (ClapTrap::attackDamage);
+    return (attackDamage);
+}
+
+void FragTrap::attack(const std::string& target)
+{
+    if (!ClapTrap::energyPoints)
+    {
+        std::cout << "FragTrap " << ClapTrap::name << " wants to attack " << target
+                    << "but has no energy points\n";
+        return;
+    }
+    if (ClapTrap::hitPoints <= 0)
+    {
+        std::cout << "FragTrap " << ClapTrap::name << " wants to attack " << target
+                    << "but has no hit points\n";
+        return;
+    }
+    std::cout << "FragTrap " << ClapTrap::name << " attacks " << target
+            << " causing " << ClapTrap::attackDamage << " points of damage!\n";
+    ClapTrap::energyPoints = ClapTrap::energyPoints - 1;
 }
 
 void    FragTrap::highFivesGuys() const 

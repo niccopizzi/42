@@ -15,10 +15,12 @@ public:
     ~DiamondTrap();
     
     std::string     getName() const;
-    std::string     getClapTrapName() const;
     int             getHitPoints() const;
     int             getEnergyPoints() const;
     int             getAttackDamage() const;
+
+    void            whoAmI() const;
+    void            attack(const std::string& target);
 };
 
 std::ostream&   operator<<(std::ostream& os, const DiamondTrap& dt);
