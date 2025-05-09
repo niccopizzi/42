@@ -1,5 +1,5 @@
-#ifndef WRONG_HPP
-#define WRONG_HPP
+#ifndef WRONGANIMAL_HPP
+#define WRONGANIMAL_HPP
 
 #include <iostream>
 
@@ -18,17 +18,4 @@ class WrongAnimal
         std::string  getType() const;
 };
 
-
-class WrongCat : public WrongAnimal
-{
-    private:
-
-    public:
-        WrongCat(); /*Default constructor*/
-        WrongCat(const WrongCat& ); /*Default copy constructor*/
-        WrongCat& operator=(const WrongCat& ); /*Default copy assignment operator*/
-        ~WrongCat(void); /*Default destructor*/
-
-        void    makeSound() const;
-};
-#endif // WRONG.HPP
+#endif

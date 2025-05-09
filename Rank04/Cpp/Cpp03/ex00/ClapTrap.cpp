@@ -1,28 +1,30 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(const std::string& name)
+ClapTrap::ClapTrap()
 {
-    this->name = name;
-    hitPoints = 10;
-    energyPoints = 10;
-    attackDamage = 0;
-    std::cout << "Default constructor called\n";
+    std::cout << "Default ClapTrap constructor called\n";
 }
 
-ClapTrap::ClapTrap(const ClapTrap& cp)
+ClapTrap::ClapTrap(const std::string& name) : _name(name)
 {
-    name = cp.getName();
-    hitPoints = cp.getHitPoints();
-    energyPoints = cp.getEnergyPoints();
-    attackDamage = cp.getAttackDamage();
+    _hitPoints = 10;
+    _energyPoints = 10;
+    _attackDamage = 0;
+    std::cout << "ClapTrap constructor called\n";
+}
+
+ClapTrap::ClapTrap(const ClapTrap& cp) : _name(cp._name)
+{
+    _hitPoints = cp._hitPoints;
+    _energyPoints = cp._energyPoints;
+    _attackDamage = cp._attackDamage;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& cp)
 {
-    name = cp.getName();
-    hitPoints = cp.getHitPoints();
-    energyPoints = cp.getEnergyPoints();
-    attackDamage = cp.getAttackDamage();
+    _hitPoints = cp._hitPoints;
+    _energyPoints = cp._energyPoints;
+    _attackDamage = cp._attackDamage;
 
     return (*this);
 }
@@ -32,79 +34,77 @@ ClapTrap::~ClapTrap()
     std::cout << "Default destructor called\n";
 }
 
-std::string ClapTrap::getName() const
+const std::string& ClapTrap::getName() const
 {
-    return (name);
+    return (_name);
 }
 int ClapTrap::getHitPoints() const
 {
-    return (hitPoints);
+    return (_hitPoints);
 }
 
 int ClapTrap::getEnergyPoints() const
 {
-    return (energyPoints);
+    return (_energyPoints);
 }
 int ClapTrap::getAttackDamage() const
 {
-    return (attackDamage);
+    return (_attackDamage);
 }
 
-void ClapTrap::setName(const std::string& newName)
-{
-    name = newName;
-}
 void ClapTrap::setHitPoints(const int newHitPoints)
 {
-    hitPoints = newHitPoints;
+    _hitPoints = newHitPoints;
 }
+
 void ClapTrap::setEnergyPoints(const int newEnergyPoints)
 {
-    energyPoints = newEnergyPoints;
+    _energyPoints = newEnergyPoints;
 }
+
 void ClapTrap::setAttackDamage(const int newAttackDamage)
 {
-    attackDamage = newAttackDamage;
+    _attackDamage = newAttackDamage;
 }
 
 void ClapTrap::attack(const std::string& target)
 {
-    if (!energyPoints)
+    if (!_energyPoints)
     {
-        std::cout << "ClapTrap " << name << " wants to attack " << target
+        std::cout << "ClapTrap " << _name << " wants to attack " << target
                     << "but has no energy points\n";
         return;
     }
-    if (hitPoints <= 0)
+    if (_hitPoints <= 0)
     {
-        std::cout << "ClapTrap " << name << " wants to attack " << target
+        std::cout << "ClapTrap " << _name << " wants to attack " << target
                     << "but has no hit points\n";
         return;
     }
-    std::cout << "ClapTrap " << name << " attacks " << target
-            << " causing " << attackDamage << " points of damage!\n";
-    energyPoints--;
+    std::cout << "ClapTrap " << _name << " attacks " << target
+            << " causing " << _attackDamage << " points of damage!\n";
+    _energyPoints--;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-    std::cout << "ClapTrap " << name << " got attacked and lost " << amount 
+    std::cout << "ClapTrap " << _name << " got attacked and lost " << amount 
                 << " of hit points\n";
-    hitPoints -= amount;
+    _hitPoints -= amount;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-    if (!energyPoints)
+    if (!_energyPoints)
     {
-        std::cout << "ClapTrap " << name << " wants to repair itself "
+        std::cout << "ClapTrap " << _name << " wants to repair itself "
                     << "but has no energy points\n";
         return;
     }
-    std::cout << "ClaTrap " << name << "repaired itself and gained " << amount 
-                << " of hit points\n";
-    hitPoints += amount;
-    energyPoints --;
+    std::cout << "ClaTrap " << _name << "repaired itself and gained " << amount 
+                << " hit points\n";
+    _hitPoints += amount;
+    _energyPoints --;
 
 }
 

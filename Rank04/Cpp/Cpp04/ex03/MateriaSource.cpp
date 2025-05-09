@@ -9,11 +9,11 @@ MateriaSource::MateriaSource()
 
 MateriaSource::MateriaSource(const MateriaSource& materiasource)
 {
-    for (int i = 0; i < materiasource.getInventoryIndex(); i++)
+    for (int i = 0; i < materiasource.inventoryIndex; i++)
     {
-        inventory[i] = materiasource.getAMateria(i);
+        inventory[i] = materiasource.inventory[i];
     }
-    inventoryIndex = materiasource.getInventoryIndex();
+    inventoryIndex = materiasource.inventoryIndex;
    //  std::cout << "MateriaSource copy constructor called" << std::endl;
 }
 
@@ -21,11 +21,11 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& materiasource)
 {
     for (int i = 0 ; i < inventoryIndex; i++)
         delete inventory[i];
-    for (int i = 0; i < materiasource.getInventoryIndex(); i++)
+    for (int i = 0; i < materiasource.inventoryIndex; i++)
     {
-        inventory[i] = materiasource.getAMateria(i);
+        inventory[i] = materiasource.inventory[i];
     }
-    inventoryIndex = materiasource.getInventoryIndex();
+    inventoryIndex = materiasource.inventoryIndex;
     // std::cout << "MateriaSource Copy assignment operator called" << std::endl;
     return (*this);
 }
@@ -41,7 +41,10 @@ MateriaSource::~MateriaSource()
 void    MateriaSource::learnMateria(AMateria* m)
 {
     if (inventoryIndex == 4)
+    {
         std::cout << "Can't learn new Materia, inventory is full" << std::endl;
+        return;
+    }
     inventory[inventoryIndex] = m;
     inventoryIndex ++;
 }
@@ -56,7 +59,6 @@ AMateria*    MateriaSource::createMateria(std::string const & type)
     return (0);
 }
 
-
 int         MateriaSource::getInventoryIndex() const
 {
     return (inventoryIndex);
@@ -65,6 +67,6 @@ int         MateriaSource::getInventoryIndex() const
 AMateria*   MateriaSource::getAMateria(int idx) const
 {
     if (idx >= inventoryIndex)
-        return (NULL);
+        throw std::out_of_range("Materia index out of range!");
     return (inventory[idx]);
 }

@@ -5,7 +5,8 @@ SRC = 		main.cpp \
 			Animal.cpp \
 			Cat.cpp \
 			Dog.cpp \
-			Wrong.cpp
+			WrongAnimal.cpp \
+			WrongCat.cpp
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 INCLUDE = -Iinclude

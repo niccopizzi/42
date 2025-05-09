@@ -1,56 +1,60 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name)
+ScavTrap::ScavTrap()
 {
-    ScavTrap::hitPoints = 100;
-    ScavTrap::energyPoints = 50;
-    ScavTrap::attackDamage = 20;
-    inGuard = false;
-    std::cout << "ScavTrap default constructor called\n";
+    std::cout << "Default ScavTrap constructor called\n";
 }
 
-ScavTrap::ScavTrap(const ScavTrap& st) : ClapTrap(st.getName())
+ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name)
 {
-    ScavTrap::hitPoints = st.getHitPoints();
-    ScavTrap::energyPoints = st.getEnergyPoints();
-    ScavTrap::attackDamage = st.getAttackDamage();
-    inGuard = st.getGuard();
+    ClapTrap::_hitPoints = 100;
+    ClapTrap::_energyPoints = 50;
+    ClapTrap::_attackDamage = 20;
+    inGuard = false;
+    std::cout << "ScavTrap constructor called\n";
+}
+
+ScavTrap::ScavTrap(const ScavTrap& st) : ClapTrap(st._name)
+{
+    ClapTrap::_hitPoints = st._hitPoints;
+    ClapTrap::_energyPoints = st._hitPoints;
+    ClapTrap::_attackDamage = st._hitPoints;
+    inGuard = st.inGuard;
     std::cout << "ScavTrap copy constructor called\n";
 }
 ScavTrap& ScavTrap::operator=(const ScavTrap& st)
 {
-    ScavTrap::name = st.getName();
-    ScavTrap::hitPoints = st.getHitPoints();
-    ScavTrap::energyPoints = st.getEnergyPoints();
-    ScavTrap::attackDamage = st.getAttackDamage();
-    inGuard = st.getGuard();
+    ClapTrap::_hitPoints = st._hitPoints;
+    ClapTrap::_energyPoints = st._energyPoints;
+    ClapTrap::_attackDamage = st._attackDamage;
+    inGuard = st.inGuard;
     std::cout << "ScavTrap copy assignment operator called\n";
     return (*this);
 }
 
 ScavTrap::~ScavTrap()
 {
-    std::cout << "ScavTrap default destructor called\n";
+    std::cout << "ScavTrap destructor called\n";
 }
 
-std::string  ScavTrap::getName() const
+const std::string&  ScavTrap::getName() const
 {
-    return (name);
+    return (ClapTrap::_name);
 }
 
 int ScavTrap::getHitPoints() const
 {
-    return (hitPoints);
+    return (ClapTrap::_hitPoints);
 }
 
 int ScavTrap::getEnergyPoints() const
 {
-    return (energyPoints);
+    return (ClapTrap::_energyPoints);
 }
 
 int ScavTrap::getAttackDamage() const
 {
-    return (attackDamage);
+    return (ClapTrap::_attackDamage);
 }
 
 bool ScavTrap::getGuard() const
@@ -61,26 +65,31 @@ bool ScavTrap::getGuard() const
 void ScavTrap::guardGate()
 {
     inGuard = true;
-    std::cout << "ScavTrap " << name << " is now in guard\n";
+    std::cout << "ScavTrap " << ClapTrap::_name << " is now in guard\n";
 }
 
 void ScavTrap::attack(const std::string& target)
 {
-    if (!ClapTrap::energyPoints)
+    if (!ClapTrap::_energyPoints)
     {
-        std::cout << "ScavTrap " << name << " wants to attack " << target
+        std::cout << "ScavTrap " << ClapTrap::_name << " wants to attack " << target
                     << "but has no energy points\n";
         return;
     }
-    if (ClapTrap::hitPoints <= 0)
+    if (ClapTrap::_hitPoints <= 0)
     {
-        std::cout << "ScavTrap " << name << " wants to attack " << target
+        std::cout << "ScavTrap " << ClapTrap::_name << " wants to attack " << target
                     << "but has no hit points\n";
         return;
     }
-    std::cout << "ScavTrap " << name << " attacks " << target
-            << " causing " << attackDamage << " points of damage!\n";
-    energyPoints = energyPoints - 1;
+    if (inGuard)
+    {
+        std::cout << "ScavTrap " << ClapTrap::_name << " is in guard and cannot attack!\n";
+        return ;
+    }
+    std::cout << "ScavTrap " << ClapTrap::_name << " attacks " << target
+            << " causing " << ClapTrap::_attackDamage << " points of damage!\n";
+    ClapTrap::_energyPoints -= 1;
 }
 
 std::ostream&   operator<<(std::ostream& os, const ScavTrap& st)

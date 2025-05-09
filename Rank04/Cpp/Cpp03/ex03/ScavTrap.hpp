@@ -8,18 +8,19 @@ class ScavTrap : virtual public ClapTrap
 private:
     bool    inGuard;
 public:
+    ScavTrap();
     ScavTrap(const std::string& name);
     ScavTrap(const ScavTrap& st);
     ScavTrap& operator=(const ScavTrap& st);
     ~ScavTrap();
 
-    std::string  getName() const;
-    int          getHitPoints() const;
-    int          getEnergyPoints() const;
-    int          getAttackDamage() const;
-    bool         getGuard() const;
+    const std::string&  getName() const;
+    int                 getHitPoints() const;
+    int                 getEnergyPoints() const;
+    int                 getAttackDamage() const;
+    bool                getGuard() const;
 
-    virtual void attack(const std::string& target);
+    void            attack(const std::string& target);
     void            guardGate();
 };
 

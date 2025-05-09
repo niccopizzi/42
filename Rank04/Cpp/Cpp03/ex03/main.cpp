@@ -9,5 +9,6 @@ int main(void)
     dt.DiamondTrap::attack("azzuazz");
    /*  std::cout << FragTrap("frag");
     std::cout << ScavTrap("scav"); */
+
     return (0);
 }

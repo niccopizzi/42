@@ -1,5 +1,5 @@
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -Wshadow -Wno-shadow -std=c++98 $(INCLUDE)
+CXXFLAGS = -Wall -Wextra -Werror -Wshadow -Wno-shadow -g -std=c++98 $(INCLUDE)
 OBJ_DIR = obj/
 SRC = 		main.cpp \
 			ClapTrap.cpp \

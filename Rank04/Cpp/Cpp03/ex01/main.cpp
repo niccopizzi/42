@@ -5,7 +5,7 @@ int main(void)
     ScavTrap evilwalle("evilwall-e");
     ClapTrap  walle("wall-e");
     std::cout << evilwalle;
-    evilwalle.guardGate();
+    //evilwalle.guardGate();
     evilwalle.attack("wall-e");
     walle.takeDamage(20);
     std::cout << walle;

@@ -10,7 +10,7 @@ class Character : public ICharacter
         AMateria*               inventory[4];
         int                     inventoryIndex;
     public:
-        Character(const std::string& name); /*Constructor*/
+        Character(const std::string& charName); /*Constructor*/
         Character(const Character& ); /*Copy constructor*/
         Character& operator=(const Character& ); /*Copy assignment operator*/
         ~Character(); /*Destructor*/

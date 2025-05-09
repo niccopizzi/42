@@ -2,20 +2,23 @@
 
 Cat::Cat(void) : Animal()
 {  
-    this->type = "Cat";
+    type = "Cat";
     brain = new Brain();
     std::cout << "Cat constructor called" << std::endl;
 }
 
 Cat::Cat(const Cat& cat) : Animal()
 {
-    this->type = cat.getType(); 
+    brain = new Brain(*cat.brain);
+    type = cat.type; 
     std::cout << "Cat copy constructor called" << std::endl;
 }
 
 Cat& Cat::operator=(const Cat& cat)
 {
-    this->type = cat.getType();
+    type = cat.type;
+    delete brain;
+    brain = new Brain(*cat.brain);
     std::cout << "Cat Copy assignment operator called" << std::endl;
     return (*this);
 }

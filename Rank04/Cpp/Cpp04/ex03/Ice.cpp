@@ -5,7 +5,7 @@ Ice::Ice() : AMateria("ice")
    // std::cout << "Ice constructor called" << std::endl;
 }
 
-Ice::Ice(const Ice& ice) : AMateria(ice.getType())
+Ice::Ice(const Ice& ice) : AMateria(ice.type)
 {
    // std::cout << "Ice copy constructor called" << std::endl;
 }

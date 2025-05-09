@@ -7,14 +7,16 @@
 class DiamondTrap : public ScavTrap, public FragTrap
 {
 private:
-    std::string name;
+    const std::string _name;
+    
 public:
+    DiamondTrap();
     DiamondTrap(const std::string& name);
     DiamondTrap(const DiamondTrap& dt);
     DiamondTrap& operator=(const DiamondTrap& dt);
     ~DiamondTrap();
     
-    std::string     getName() const;
+    const std::string&  getName() const;
     int             getHitPoints() const;
     int             getEnergyPoints() const;
     int             getAttackDamage() const;

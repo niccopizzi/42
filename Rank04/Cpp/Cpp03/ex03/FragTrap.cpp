@@ -1,77 +1,62 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap(const std::string& name) : ClapTrap(name)
+FragTrap::FragTrap()
 {
-    FragTrap::hitPoints = 100;
-    FragTrap::energyPoints = 100;
-    FragTrap::attackDamage = 30;
-    std::cout << "FragTrap default constructor called\n";
+    std::cout << "Default FragTrap constructor called\n";
 }
 
-FragTrap::FragTrap(const FragTrap& st) : ClapTrap(st.getName())
+FragTrap::FragTrap(const std::string& name) : ClapTrap(name)
 {
-    FragTrap::hitPoints = st.getHitPoints();
-    FragTrap::energyPoints = st.getEnergyPoints();
-    FragTrap::attackDamage = st.getAttackDamage();
+    ClapTrap::_hitPoints = 100;
+    ClapTrap::_energyPoints = 100;
+    ClapTrap::_attackDamage = 30;
+    std::cout << "FragTrap constructor called\n";
+}
+
+FragTrap::FragTrap(const FragTrap& st) : ClapTrap(st._name)
+{
+    ClapTrap::_hitPoints = st._hitPoints;
+    ClapTrap::_energyPoints = st._energyPoints;
+    ClapTrap::_attackDamage = st._attackDamage;
     std::cout << "FragTrap copy constructor called\n";
 }
 FragTrap& FragTrap::operator=(const FragTrap& st)
 {
-    FragTrap::name = st.getName();
-    FragTrap::hitPoints = st.getHitPoints();
-    FragTrap::energyPoints = st.getEnergyPoints();
-    FragTrap::attackDamage = st.getAttackDamage();
+    ClapTrap::_hitPoints = st._hitPoints;
+    ClapTrap::_energyPoints = st._energyPoints;
+    ClapTrap::_attackDamage = st._attackDamage;
     std::cout << "FragTrap copy assignment operator called\n";
     return (*this);
 }
 
 FragTrap::~FragTrap()
 {
-    std::cout << "FragTrap default destructor called\n";
+    std::cout << "FragTrap destructor called\n";
 }
 
-std::string  FragTrap::getName() const
+const std::string&  FragTrap::getName() const
 {
-    return (name);
+    return (ClapTrap::_name);
 }
 
 int FragTrap::getHitPoints() const
 {
-    return (hitPoints);
+    return (ClapTrap::_hitPoints);
 }
 
 int FragTrap::getEnergyPoints() const
 {
-    return (energyPoints);
+    return (ClapTrap::_energyPoints);
 }
 
 int FragTrap::getAttackDamage() const
 {
-    return (attackDamage);
-}
-
-void FragTrap::attack(const std::string& target)
-{
-    if (!ClapTrap::energyPoints)
-    {
-        std::cout << "FragTrap " << ClapTrap::name << " wants to attack " << target
-                    << "but has no energy points\n";
-        return;
-    }
-    if (ClapTrap::hitPoints <= 0)
-    {
-        std::cout << "FragTrap " << ClapTrap::name << " wants to attack " << target
-                    << "but has no hit points\n";
-        return;
-    }
-    std::cout << "FragTrap " << ClapTrap::name << " attacks " << target
-            << " causing " << ClapTrap::attackDamage << " points of damage!\n";
-    ClapTrap::energyPoints = ClapTrap::energyPoints - 1;
+    return (ClapTrap::_attackDamage);
 }
 
 void    FragTrap::highFivesGuys() const 
 {
-    std::cout << "FragTrap " << ClapTrap::name << " says: High figh guys!\n";
+    std::cout << "FragTrap " << ClapTrap::_name << " says: High figh guys!\n";
 }
 
 std::ostream&   operator<<(std::ostream& os, const FragTrap& st)

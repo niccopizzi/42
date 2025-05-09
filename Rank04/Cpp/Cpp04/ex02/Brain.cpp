@@ -2,27 +2,23 @@
 
 Brain::Brain()
 {
-    ideasNum = 0;
+    for (int i = 0; i < 100; i++)
+        ideas[i] = "";
     std::cout << "Brain constructor called" << std::endl;
 }
 
 Brain::Brain(const Brain& brain)
 {
-    const std::string* ptr = brain.getIdeas();
-
-    for (unsigned int i = 0; i < brain.getIdeasNum(); i++)
-        this->ideas[i] = std::string(ptr[i]);
-    this->ideasNum = brain.getIdeasNum();
+    for (unsigned int i = 0; !brain.ideas[i].empty(); i++)
+        ideas[i] = brain.ideas[i];
     std::cout << "Brain copy constructor called" << std::endl;
 }
 
 Brain& Brain::operator=(const Brain& brain)
 {
-    const std::string* ptr = brain.getIdeas();
 
-    for (unsigned int i = 0; i < brain.getIdeasNum(); i++)
-        this->ideas[i] = std::string(ptr[i]);
-    this->ideasNum = brain.getIdeasNum();
+    for (unsigned int i = 0; !brain.ideas[i].empty(); i++)
+        ideas[i] = brain.ideas[i];
     std::cout << "Brain Copy assignment operator called" << std::endl;
     return (*this);
 }
@@ -32,12 +28,15 @@ Brain::~Brain()
     std::cout << "Brain destructor called" << std::endl;
 }
 
-const std::string*    Brain::getIdeas() const 
+const std::string&    Brain::getIdeas(unsigned int index) const 
 {
-    return (ideas);
+    if (index < 0 || index > 100)
+        throw std::out_of_range("Index out of range");
+    return (ideas[index]);
 }
 
-unsigned int    Brain::getIdeasNum() const
+void    Brain::setIdeas(unsigned int index, const std::string& newIdea) 
 {
-    return (ideasNum);
+    if (index >= 0 && index < 100)
+        ideas[index] = newIdea;
 }

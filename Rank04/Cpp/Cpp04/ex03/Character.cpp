@@ -1,33 +1,31 @@
 #include "Character.hpp"
 
-Character::Character(const std::string& name)
+Character::Character(const std::string& charName) : name(charName)
 {
-    this->name = name;
     inventoryIndex = 0;
    // std::cout << "Character constructor called" << std::endl;
 }
 
-Character::Character(const Character& character)
+Character::Character(const Character& character) : name(character.name)
 {
-    this->name = character.getName();
-    for (int i = 0; i < character.getInventoryIndex(); i++)
+    for (int i = 0; i < character.inventoryIndex; i++)
     {
-        inventory[i] = character.getAMateria(i)->clone();
+        inventory[i] = character.inventory[i]->clone();
     }
-    inventoryIndex = character.getInventoryIndex();
+    inventoryIndex = character.inventoryIndex;
    // std::cout << "Character copy constructor called" << std::endl;
 }
 
 Character& Character::operator=(const Character& character)
 {
-    this->name = character.getName();
+    this->name = character.name;
     for (int i = 0; i < inventoryIndex; i++)
         delete inventory[i];
-    for (int i = 0; i < character.getInventoryIndex(); i++)
+    for (int i = 0; i < character.inventoryIndex; i++)
     {
-        inventory[i] = character.getAMateria(i)->clone();
+        inventory[i] = character.inventory[i]->clone();
     }
-    inventoryIndex = character.getInventoryIndex();
+    inventoryIndex = character.inventoryIndex;
    // std::cout << "Character Copy assignment operator called" << std::endl;
     return (*this);
 }
@@ -63,17 +61,15 @@ int                 Character::getInventoryIndex() const
 
 AMateria*           Character::getAMateria(int idx) const
 {
-    if (idx >= inventoryIndex)
-        return (NULL);
+    if (idx < 0 || idx >= inventoryIndex)
+        throw std::out_of_range("Materia index out of range!");
     return (inventory[idx]);
 }
 
-
 void                Character::unequip(int idx)
 {
-    if (idx >= inventoryIndex)
+    if (idx < 0 || idx >= inventoryIndex)
     {
-        std::cout << "Unequip error: index is not valid" << std::endl;
         return ;
     }
     for (int i = idx; i < (inventoryIndex - 1); i++)
@@ -85,9 +81,8 @@ void                Character::unequip(int idx)
 }
 void                Character::use(int idx, ICharacter& target)
 {
-    if (idx >= inventoryIndex)
+    if (idx < 0 || idx >= inventoryIndex)
     {
-        std::cout << "Use error: index is not valid" << std::endl;
         return ;
     }
     inventory[idx]->use(target);

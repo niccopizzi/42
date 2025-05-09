@@ -8,19 +8,19 @@ class FragTrap : public ClapTrap
 private:
 
 public:
+    FragTrap();
     FragTrap(const std::string& name);
     FragTrap(const FragTrap& ft);
     FragTrap& operator=(const FragTrap& ft);
     ~FragTrap();
 
 
-    std::string  getName() const;
+    const std::string&  getName() const;
     int          getHitPoints() const;
     int          getEnergyPoints() const;
     int          getAttackDamage() const;
     bool         getGuard() const;
 
-    void attack(const std::string& target);
     void highFivesGuys(void) const;
 };
 
