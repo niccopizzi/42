@@ -5,62 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: npizzi <npizzi@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 12:16:13 by nicco             #+#    #+#             */
-/*   Updated: 2025/03/18 13:20:25 by npizzi           ###   ########.fr       */
+/*   Created: 2024/03/15 18:36:56 by thopgood          #+#    #+#             */
+/*   Updated: 2025/06/14 14:16:39 by npizzi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minift.h"
 
-static int	is_inset(char c, char const *set)
+static size_t	ft_offsetstart(const char *str, char const *set)
 {
-	int	i;
+	size_t	offset_start;
 
-	i = 0;
-	if (set == NULL)
-		return (0);
-	while (set[i] != 0)
-	{
-		if (c == set[i])
-			return (1);
-		i++;
-	}
-	return (0);
+	offset_start = 0;
+	while (*str && ft_strchr(set, *str++) && str)
+		offset_start++;
+	return (offset_start);
 }
 
-static void	copy_str(char *dest, const char *src, int start, int end)
+static size_t	ft_offsetend(const char *str, char const *set, size_t len)
 {
-	int	i;
+	size_t	offset_end;
 
-	i = 0;
-	while (start < end)
-	{
-		dest[i] = src[start];
-		i++;
-		start++;
-	}
-	dest[i] = 0;
+	offset_end = 0;
+	while (*str && ft_strchr(set, str[len - 1]) && len-- > 0)
+		offset_end++;
+	return (offset_end);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*newstr;
-	size_t	i;
-	size_t	x;
+	size_t	s_len;
+	size_t	offset_start;
+	size_t	offset_end;
 
 	if (s1 == NULL)
 		return (NULL);
-	x = ft_strlen(s1);
-	i = 0;
-	while (is_inset(s1[i], set) == 1)
-		i++;
-	while (is_inset(s1[x - 1], set) == 1)
-		x--;
-	if (x == 0)
+	s_len = ft_strlen(s1);
+	offset_start = ft_offsetstart(s1, set);
+	if (offset_start == s_len)
 		return (ft_strdup(""));
-	newstr = (char *)malloc((x - i + 1) * sizeof(char));
-	if (newstr == NULL)
-		return (NULL);
-	copy_str(newstr, s1, i, x);
-	return (newstr);
+	offset_end = ft_offsetend(s1, set, s_len);
+	s_len = s_len - offset_start - offset_end;
+	return (ft_substr(s1, offset_start, s_len));
 }
