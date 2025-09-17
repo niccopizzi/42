@@ -25,6 +25,16 @@ int main ()
     {
         std::cerr << "An error occured : " << e.what() << '\n';
     }
-    
+    try
+    {
+        Form g("not very important", -1, 0);
+
+        std::cout << g;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "An error occured : " << e.what() << '\n';
+    }
+
     return (0);
 }

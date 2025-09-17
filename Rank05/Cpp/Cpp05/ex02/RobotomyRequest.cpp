@@ -5,7 +5,8 @@ inline unsigned char  invertBits(unsigned char x)
     return (((1 << 9) - 1) ^ x);
 }
 
-RobotomyRequest::RobotomyRequest(const std::string& target) : AForm("Robotomy Request", 72, 45) , _target(target)
+RobotomyRequest::RobotomyRequest(const std::string& target) :   AForm("Robotomy Request", 72, 45) ,
+                                                                _target(target)
 {
    // std::cout << "Robotomy Request created\n";
 } 

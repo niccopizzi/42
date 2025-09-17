@@ -1,33 +1,8 @@
 #include "ScalarConverter.hpp"
 
-ScalarConverter::ScalarConverter()
+void    displayChar(char c)
 {
-    std::cout << "ScalarConverter constructor called" << std::endl;
-}
-
-ScalarConverter::ScalarConverter(const ScalarConverter& scalarconverter)
-{
-    (void)scalarconverter;
-    std::cout << "ScalarConverter copy constructor called" << std::endl;
-}
-
-ScalarConverter& ScalarConverter::operator=(const ScalarConverter& scalarconverter)
-{
-    (void)scalarconverter;
-    std::cout << "ScalarConverter Copy assignment operator called" << std::endl;
-    return (*this);
-}
-
-ScalarConverter::~ScalarConverter()
-{
-    std::cout << "ScalarConverter destructor called" << std::endl;
-}
-
-void    displayChar(char c, bool convertible)
-{
-    if (!convertible || !isascii(c))
-        std::cout << "impossible\n";
-    else if (!isprint(c))
+    if (!isprint(c))
         std::cout << "Non displayable\n";
     else
         std::cout << "'" << c << "'\n";
@@ -35,7 +10,7 @@ void    displayChar(char c, bool convertible)
 
 void    convertChar(char c)
 {
-    std::cout << "char: ", displayChar(c, true);
+    std::cout << "char: ", displayChar(c);
     std::cout << "int: " << static_cast<int>(c) << '\n';
     std::cout << "float: " << static_cast<float>(c) << ".0f\n";
     std::cout << "double: " << static_cast<double>(c) << ".0\n";
@@ -47,8 +22,11 @@ void    convertInt(std::string& literal)
     std::stringstream ss(literal);
 
     ss >> i;
-    std::cout << "char: ", displayChar(static_cast<char>(i), i < (1 << 8));
-    if (i < __INT_MAX__)
+    if (i > 0 && i < 127)
+        std::cout << "char: ", displayChar(static_cast<char>(i));
+    else
+        std::cout << "char: impossible\n";
+    if (i < __INT_MAX__ && i >= (1 << 31))
         std::cout << "int: " << i << '\n';
     else
         std::cout << "int: impossible\n";
@@ -61,26 +39,36 @@ bool    isConvertible(double d)
     return (!std::isnan(d) && !std::isinf(d));
 }
 
+bool    isConvertible(float f)
+{
+    return (!std::isnan(f) && !std::isinf(f));
+}
+
 void    convertFloat(std::string& literal)
 {
     float   f;
     std::stringstream ss(literal);
 
     if (literal == "+inff")
-        f = std::numeric_limits<double>::infinity();
+        f = std::numeric_limits<float>::infinity();
     else if (literal == "-inff")
-        f = std::numeric_limits<double>::infinity() * -1;
+        f = std::numeric_limits<float>::infinity() * -1;
     else if (literal == "nanf")
-        f = std::numeric_limits<double>::quiet_NaN();
+        f = std::numeric_limits<float>::quiet_NaN();
     else
         ss >> f;
 
-    std::cout << "char: ", displayChar(f, isConvertible(f) && f < (1 << 8));
-    if (isConvertible(f) && f < __INT_MAX__)
+    bool isConvert = isConvertible(f);
+    bool hasDecimalPart = ((static_cast<long>(f) - f) != 0);
+    if (isConvert && !hasDecimalPart && f > 0.0f && f <= 127.0f)
+        std::cout << "char: ", displayChar(static_cast<char>(f));
+    else
+        std::cout << "char: impossible\n";
+    if (isConvert && f < (1U << 31) && f >= (1 << 31))
         std::cout << "int: " << static_cast<int>(f) << '\n';
     else    
         std::cout << "int: impossible\n";
-    if ((static_cast<int>(f) - f ) == 0)
+    if (!hasDecimalPart)
         std::cout << std::fixed << std::setprecision(1);
     std::cout << "float: " << f << "f\n";
     std::cout << "double: " << static_cast<double>(f) << '\n';
@@ -101,12 +89,17 @@ void    convertDouble(std::string& literal)
     else
         ss >> d;
     
-    std::cout << "char: ", displayChar(d, isConvertible(d) && d < (1 << 8));
-    if (isConvertible(d) && d < __INT_MAX__)
+    bool isConvert = isConvertible(d);
+    bool hasDecimalPart = ((static_cast<int>(d) - d) != 0);
+    if (isConvert && !hasDecimalPart && d > 0.0 && d <= 127.0f)
+        std::cout << "char: ", displayChar(static_cast<char>(d));
+    else
+        std::cout << "char: impossible\n";
+    if (isConvertible(d) && d < (1U << 31) && d >= (1 << 31))
         std::cout << "int: " << static_cast<int>(d) << '\n';
     else    
         std::cout << "int: impossible\n";
-    if ((static_cast<int>(d) - d ) == 0)
+    if (!hasDecimalPart)
         std::cout << std::fixed << std::setprecision(1);
     std::cout << "float: " << static_cast<float>(d) << "f\n";
     std::cout << "double: " << d << '\n';
@@ -115,7 +108,7 @@ void    convertDouble(std::string& literal)
 
 void    ScalarConverter::convert(std::string& literal)
 {
-    if (literal.size() == 1 && isalpha(literal.at(0)))
+    if (literal.size() == 1 && !isdigit(literal.at(0)))
         convertChar(literal.at(0));
     else if (literal == "-inff" || literal == "+inff" || literal == "nanf")
         convertFloat(literal);

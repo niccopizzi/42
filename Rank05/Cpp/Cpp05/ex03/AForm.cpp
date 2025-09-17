@@ -6,9 +6,9 @@ GradeTooHighException("The grade is too high"), GradeTooLowException("The grade 
 {
     _signed = false;
     if (gradeToSign < 1 || gradeToExecute < 1)
-        throw GradeTooHighException;
+        throw (AForm::GradeTooHighException);
     if (gradeToSign > 150 || gradeToExecute > 150)
-        throw GradeTooLowException;
+        throw (AForm::GradeTooLowException);
     std::cout << "Form constructor called, everything seems to be ok!\n"; 
 }
 
@@ -22,16 +22,16 @@ void    AForm::beSigned(const Bureaucrat& B)
     int     BGrade = B.getGrade();
 
     if (BGrade > gradeToSign)
-        throw GradeTooLowException;
+        throw (AForm::GradeTooLowException);
     _signed = true;   
 }
 
 void    AForm::execute(Bureaucrat const & executor) const
 {
     if (!_signed)
-        throw FormNotSignedException;
+        throw (AForm::FormNotSignedException);
     if (executor.getGrade() > gradeToExecute)
-        throw GradeTooLowException;
+        throw (AForm::GradeTooLowException);
 }
 
 const std::string& AForm::getName() const

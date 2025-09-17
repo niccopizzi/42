@@ -47,7 +47,7 @@ void   Data::enqueue(int ptr)
 {
     if (size == 8)
     {
-        std::cout << "Ring buffer is full, no queue allowed\n";
+        std::cout << "Ring buffer is full, no queueing allowed\n";
         return;
     }
     ptrs[(first + size) % 8] = ptr;

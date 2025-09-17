@@ -6,8 +6,7 @@
 int main()
 {
     std::srand(unsigned(std::time(NULL)));
-    std::vector<int> v(30000);
-    std::generate(v.begin(), v.end(), std::rand);
+
     Span sp = Span(5);
     sp.addNumber(6);
     sp.addNumber(3);
@@ -16,7 +15,11 @@ int main()
     sp.addNumber(11);
     std::cout << sp.shortestSpan() << std::endl;
     std::cout << sp.longestSpan() << std::endl;
+    
 
+    std::vector<int> v(30000);
+    std::generate(v.begin(), v.end(), std::rand);
+    
     Span    sp2 = Span(30000);
     sp2.addNumber(v.begin(), v.end());
     std::cout << sp2;

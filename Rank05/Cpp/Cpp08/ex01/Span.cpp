@@ -19,9 +19,12 @@ Span::Span(const Span& span)
 
 Span& Span::operator=(const Span& span)
 {
-    if (ar.capacity() < span.ar.size())
-        throw   std::length_error("Size of arrays does not match");
-    ar = span.ar;
+    if (this != &span)
+    {
+        if (ar.capacity() < span.ar.size())
+            throw   std::length_error("Size of arrays does not match");
+        ar = span.ar;
+    }
     std::cout << "Span Copy assignment operator called" << std::endl;
     return (*this);
 }
@@ -51,12 +54,12 @@ void    Span::addNumber(int num)
 void    Span::addNumber(std::vector<int>::const_iterator begin, 
                         std::vector<int>::const_iterator end)
 {
+    if (end < begin)
+        std::swap(begin, end);
+
     if (static_cast<unsigned int>(end - begin) > ar.capacity() - ar.size())
-        throw std::length_error("Cannot add this amount of elements to the span");
-    for (; begin != end; ++begin)
-    {
-        ar.push_back(*begin);
-    }
+        throw std::length_error("Cannot add this amount of elements to the span");    
+    std::copy(begin, end, std::back_inserter(ar));
 }
 
 int     Span::longestSpan() const
@@ -73,17 +76,15 @@ int     Span::shortestSpan() const
         throw std::length_error("Not enough elements to calculate span");
 
     std::vector<int> copy(ar);
-    std::vector<int>::iterator  begin = copy.begin();
-    std::vector<int>::iterator  end = copy.end();
+    std::vector<int>::iterator  begin(copy.begin());
+    std::vector<int>::iterator  end(copy.end());
     int              shortestDistance = __INT_MAX__;
 
     std::sort(begin, end);
   
-    begin = copy.begin();
-    end = copy.end();
-    for (; begin != (end - 1); begin++)
+    for (; begin != (end - 1); ++begin)
     {
-        if (*(begin + 1) - *begin < shortestDistance)
+        if ((*(begin + 1) - *begin) < shortestDistance)
             shortestDistance = *(begin + 1) - *begin;
     }
     return (shortestDistance);

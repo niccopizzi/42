@@ -1,14 +1,17 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-Form::Form(const std::string& name, int signGrade, int executeGrade) : _name(name), gradeToSign(signGrade), gradeToExecute(executeGrade),
-GradeTooHighException("The grade is too high"), GradeTooLowException("The grade is too low")
+Form::Form(const std::string& name, int signGrade, int executeGrade) : _name(name), 
+                                                                        gradeToSign(signGrade), 
+                                                                        gradeToExecute(executeGrade),
+                                                                        GradeTooHighException("The grade is too high"), 
+                                                                        GradeTooLowException("The grade is too low")
 {
     _signed = false;
     if (gradeToSign < 1 || gradeToExecute < 1)
-        throw GradeTooHighException;
+        throw (Form::GradeTooHighException);
     if (gradeToSign > 150 || gradeToExecute > 150)
-        throw GradeTooLowException;
+        throw (Form::GradeTooLowException);
     std::cout << "Form constructor called, everything seems to be ok!\n"; 
 }
 
@@ -22,7 +25,7 @@ void    Form::beSigned(const Bureaucrat& B)
     int     BGrade = B.getGrade();
 
     if (BGrade > gradeToSign)
-        throw GradeTooLowException;
+        throw (Form::GradeTooLowException);
     _signed = true;   
 }
 

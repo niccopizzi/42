@@ -33,11 +33,11 @@ AForm*  Intern::makeForm(const std::string& form, const std::string& target) con
         ;
     switch (index)
     {
-    case 0:
+    case SHRUBBERY_FORM:
         return (new ShrubberyCreationForm(target));
-    case 1:
+    case ROBOTOMY_FORM:
         return (new RobotomyRequest(target));
-    case 2:
+    case PRESIDENTIAL_FORM:
         return (new PresidentialPardonForm(target));
     default:
         std::cout << "Sorry " << form << " not available\n";

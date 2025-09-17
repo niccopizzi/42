@@ -10,6 +10,7 @@ class Data
         int     ptrs[8];
         size_t  size;
         size_t  first;
+        
     public:
         Data();
         Data(const Data& );

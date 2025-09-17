@@ -7,10 +7,10 @@
 class Bureaucrat : public std::exception
 {
     private:
-        const  std::string _name;
-        const std::out_of_range GradeTooHighException;
-        const std::out_of_range GradeTooLowException;
-        int               grade;
+        const   std::string         _name;
+        const   std::out_of_range   GradeTooHighException;
+        const   std::out_of_range   GradeTooLowException;
+        int                         grade;
         Bureaucrat();
 
     public:

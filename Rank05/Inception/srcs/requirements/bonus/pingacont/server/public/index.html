@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ping A Cont</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" type="text/javascript" defer></script>
+  </head>
+  <body>
+    <header>
+        <div class="logo">
+            <img src="img/alien.svg" alt="cat...."/>
+            <figcaption>PING A CONT</figcaption>
+        </div>
+        <nav>
+            <ul class="navbar">
+                <li>
+                    <img src="img/adminerlogo.png">
+                    <a href="#adminer">Adminer</a>
+                </li>
+                <li>
+                    <img src="img/ftp.png">
+                    <a href="#ftp">FTP</a>
+                </li>
+                <li>
+                    <img src="img/mariadb.svg">
+                    <a href="#mariadb">MariaDB</a>
+                </li>
+                <li>
+                    <img src="img/nginx.svg">
+                    <a href="#nginx">Nginx</a>
+                </li>
+                <li>
+                    <img src="img/redis.svg">
+                    <a href="#redis">Redis</a>
+                </li>
+                <li>
+                    <img src="img/wp.svg">
+                    <a href="#wordpress">Wordpress</a>
+                </li>
+            </ul>
+        </nav>
+        <a onclick="easterEggFunc()" id="egb" href="#"><button id="egbb">Contact</button></a>
+    </header>
+    <ul>
+        <div class="cont_list">
+            <li id="mariadb">
+                <button class="ping_btn" service="mariadb" host="mariadb-container">Mariadb</button>
+                <p>Status Unknown</p>
+            </li>
+            <li id="wordpress">
+                <button class="ping_btn" service="wordpress" host="wordpress-container">Wordpress</button>
+                <p>Status Unknown</p>
+            </li>
+            <li id="nginx">
+                <button class="ping_btn" service="nginx" host="nginx-container">Nginx</button>
+                <p>Status Unknown</p>
+            </li>
+            <li id="redis">
+                <button class="ping_btn" service="redis" host="redis-container">Redis</button>
+                <p>Status Unknown</p>
+            </li>
+            <li id="ftp">
+                <button class="ping_btn" service="ftp" host="ftp-container">FPT-Server</button>
+                <p>Status Unknown</p>
+            </li>
+            <li id="adminer">
+                <button class="ping_btn" service="adminer" host="adminer-container">Adminer</button>
+                <p>Status Unknown</p>
+            </li>
+        </div>
+    </ul>
+  </body>
+</html>

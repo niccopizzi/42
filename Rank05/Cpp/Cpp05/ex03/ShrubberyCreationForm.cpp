@@ -2,7 +2,8 @@
 
 const char* assets[] = {"./assets/tree.txt", "./assets/tree2.txt", "./assets/tree3.txt"};
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) : AForm("ShrubberyCreationForm", 145, 137), _target(target)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) :   AForm("ShrubberyCreationForm", 145, 137), 
+                                                                            _target(target)
 {
     std::cout << "Shrubbery Creation Form created!\n";
 }

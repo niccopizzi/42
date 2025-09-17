@@ -5,6 +5,11 @@
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequest.hpp"
 
+#define SHRUBBERY_FORM 0
+#define ROBOTOMY_FORM 1
+#define PRESIDENTIAL_FORM 2
+
+
 class Intern
 {
     private:

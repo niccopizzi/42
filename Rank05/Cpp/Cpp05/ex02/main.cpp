@@ -25,7 +25,7 @@ int main ()
 
     rf.beSigned(b);
     rf.execute(fan);
-
+    rf.execute(b);
     try
     {
         pf.beSigned(fan);

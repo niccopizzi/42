@@ -4,13 +4,19 @@
 int main ()
 {   
     Intern  someRandomIntern;
-    AForm*  rrf;
+    AForm*  robotomyForm;
+    AForm*  presPardForm;
+    AForm*  shrubbForm;
     AForm*  notexist;
 
-    rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+    robotomyForm = someRandomIntern.makeForm("robotomy request", "Bender");
+    presPardForm = someRandomIntern.makeForm("presidential pardon", "Bender");
+    shrubbForm = someRandomIntern.makeForm("shrubbery creation", "Bender");
     notexist = someRandomIntern.makeForm("nonexistent form", "home");
     
-    delete rrf;
+    delete robotomyForm;
+    delete shrubbForm;
+    delete presPardForm;
     if (notexist != NULL)
     {
         std::cout << "notexist is something!\n";

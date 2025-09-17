@@ -10,18 +10,12 @@
 template<typename T>
 void easyfind(T& container, int n)
 {
-    typename T::iterator   it = container.begin();
-    typename T::iterator   end = container.end();
+    typename T::iterator f = std::find(container.begin(), container.end(), n);
 
-    for (; it != end; it++)
-    {
-        if (*it == n)
-        {
-            std::cout << "Found " << n << '\n';
-            return;
-        }
-    }
-    throw   std::out_of_range("Did not find any occurence");
+    if (f == container.end())
+        throw std::runtime_error("Did not find any occurence");
+    else
+        std::cout << "Number " << n << " is present in the container\n";
 }
 
 #endif // EASYFIND.HPP

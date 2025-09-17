@@ -7,6 +7,12 @@ void    addTen(T& elem)
     elem += 10;
 }
 
+template<typename T>
+void    printElem(const T& elem)
+{
+    std::cout << elem << '\n';
+}
+
 void    deleteDoubles(std::string& n)
 {
     bool map[256] = {0};
@@ -52,12 +58,23 @@ int main(void)
     }
     {
         std::string array[5] = {"Abba", "Lamba", "Gamma", "Samba", "Rumbabbbba"};
+        std::cout << "Strings before removing doubles\n";
         for(int i = 0; i < 5; i++)
             std::cout << array[i] << "\n";
         iter(array, 5 , deleteDoubles);
-        std::cout << "Array after iter\n";
+        std::cout << "Strings after removing doubles\n";
         for(int i = 0; i < 5; i++)
             std::cout << array[i] << "\n";
+    }
+
+    {
+        const int array[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        std::cout<<"Printing the const array of ints\n";
+        iter(array, 10, printElem<const int>);
+
+        std::cout<<"Printing the const array of strings\n";
+        const std::string strArray[8] = {"This", "is", "a", "test", "for", "iter", "on", "const"};
+        iter(strArray, 8, printElem<const std::string&>);
     }
     return (0);
 }

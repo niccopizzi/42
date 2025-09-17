@@ -12,17 +12,19 @@ class Array
         T*              theArray;
         unsigned int    _size;
     public:
-        Array() : theArray(new T()), _size(0)
+        Array() :   _size(0)
         {
             std::cout << "Default constructor called\n";
         }
 
-        Array(unsigned int n) : theArray(new T[n]()), _size(n)
+        Array(unsigned int n) : theArray(new T[n]()),
+                                _size(n)
         {
             std::cout << "Size constructor called\n";
         }
 
-        Array(const Array& ar) : theArray(new T[ar._size]()), _size(ar._size)
+        Array(const Array& ar) :    theArray(new T[ar._size]()),
+                                    _size(ar._size)
         {
             for (unsigned int i = 0; i < _size; i++)
                 theArray[i] = ar[i];
